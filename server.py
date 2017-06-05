@@ -8,13 +8,13 @@ import messenger
 
 app = Flask(__name__)
 
-FACEBOOK_TOKEN = os.environ['FACEBOOK_TOKEN']
+FACEBOOK_TOKEN = os.environ.get('FACEBOOK_TOKEN', 'facebook_token')
 bot = None
 
 
 @app.route('/', methods=['GET'])
 def verify():
-    if request.args.get('hub.verify_token', '') == os.environ['VERIFY_TOKEN']:
+    if request.args.get('hub.verify_token', '') == os.environ.get('VERIFY_TOKEN', 'verify_token'):
         return request.args.get('hub.challenge', '')
     else:
         return 'Error, wrong validation token'
@@ -35,5 +35,5 @@ def webhook():
 
 if __name__ == '__main__':
     bot = chatbot.Bot()
-    PORT = os.environ['PORT']
-    app.run(port=PORT)
+    PORT = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=PORT)
