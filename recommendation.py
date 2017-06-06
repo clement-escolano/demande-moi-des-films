@@ -53,9 +53,10 @@ class Recommendation:
         similarities = self.compute_all_similarities(user)
         similarities.sort()
         similarities.reverse()
-        best_match = similarities[0][0]
-        recommendations = self.get_movies_from_user(best_match)
-        return "Vos recommandations : " + ",".join(recommendations)
+        best_match = similarities[0][1]
+        best_match_user = self.test_users[best_match]
+        recommendations = self.get_movies_from_user(best_match_user)[0:3]
+        return "Vos recommandations : " + ", ".join(recommendations)
 
     def ask_question(self, user):
         movie_number = self.movies_list[randint(0, len(self.movies_list))]
@@ -64,7 +65,7 @@ class Recommendation:
 
     def compute_all_similarities(self, user):
         similarities = []
-        for other_user in self.test_users:
+        for other_user in self.test_users.values():
             similarities.append((User.get_similarity(user, other_user), other_user.id))
         return similarities
 
@@ -74,6 +75,3 @@ class Recommendation:
         for movie_number in good_movies:
             movies_list.append(self.movies[movie_number])
         return movies_list
-
-
-
