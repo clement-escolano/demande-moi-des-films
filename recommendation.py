@@ -15,7 +15,7 @@ class Recommendation:
                 if is_first:
                     is_first = False
                     continue
-                self.movies[movie[0]] = movie[1]
+                self.movies[int(movie[0])] = movie[1]
 
         self.ratings = []
         with open('./ml-latest-small/ratings.csv', 'rt', encoding="utf-8") as ratingsFile:
@@ -25,7 +25,7 @@ class Recommendation:
                 if is_first:
                     is_first = False
                     continue
-                self.ratings.append({'movie': rating[1], 'user': rating[0], 'score': rating[2]})
+                self.ratings.append({'movie': int(rating[1]), 'user': int(rating[0]), 'score': float(rating[2])})
 
         self.test_users = {}
         self.users = {}
