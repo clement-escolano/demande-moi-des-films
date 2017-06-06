@@ -16,7 +16,6 @@ class Recommendation:
                     is_first = False
                     continue
                 self.movies[movie[0]] = movie[1]
-                self.movies_list.append(movie[0])
 
         self.ratings = []
         with open('./ml-latest-small/ratings.csv', 'rt', encoding="utf-8") as ratingsFile:
@@ -43,6 +42,7 @@ class Recommendation:
                 user.bad_ratings.append(rating.movie)
             else:
                 user.neutral_ratings.append(rating.movie)
+            self.movies_list.append(rating.movie)
 
     def register_user(self, sender):
         if sender not in self.users.keys():
