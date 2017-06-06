@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os
+import json
 from flask import Flask, request
 
 import chatbot
@@ -32,6 +33,21 @@ def webhook():
         messenger.send_message(FACEBOOK_TOKEN, sender, response)
 
     return "ok"
+
+
+@app.route('/local', methods=['POST'])
+def local():
+    payload = request.get_data()
+    data = json.loads(payload)
+    sender = data["sender"]
+    message = data["message"]
+    print("Incoming from %s: %s" % (sender, message))
+
+    response = bot.respond_to(sender, message)
+
+    print("Outgoing to %s: %s" % (sender, response))
+
+    return response
 
 if __name__ == '__main__':
     bot = chatbot.Bot()
