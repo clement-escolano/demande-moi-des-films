@@ -33,16 +33,16 @@ class Recommendation:
 
     def process_ratings_to_users(self):
         for rating in self.ratings:
-            if rating.id not in self.test_users.keys():
-                self.test_users[rating.id] = User(rating.id)
-            user = self.test_users[rating.id]
-            if rating.score >= 4:
-                user.good_ratings.append(rating.movie)
-            elif rating.score <= 2:
-                user.bad_ratings.append(rating.movie)
+            if rating['user'] not in self.test_users.keys():
+                self.test_users[rating['user']] = User(rating['user'])
+            user = self.test_users[rating['user']]
+            if rating['score'] >= 4:
+                user.good_ratings.append(rating['movie'])
+            elif rating['score'] <= 2:
+                user.bad_ratings.append(rating['movie'])
             else:
-                user.neutral_ratings.append(rating.movie)
-            self.movies_list.append(rating.movie)
+                user.neutral_ratings.append(rating['movie'])
+            self.movies_list.append(rating['movie'])
 
     def register_user(self, sender):
         if sender not in self.users.keys():
