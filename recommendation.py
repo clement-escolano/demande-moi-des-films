@@ -61,7 +61,7 @@ class Recommendation:
     def ask_question(self, user):
         movie_number = self.movies_list[randint(0, len(self.movies_list))]
         user.set_question(movie_number)
-        return "Avez-vous aimé : " + self.movies[movie_number]
+        return ("Avez-vous aimé : " + self.movies[movie_number]), ["Oui", "Non", "Pas vu"]
 
     def compute_all_similarities(self, user):
         similarities = []

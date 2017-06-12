@@ -27,10 +27,10 @@ def webhook():
     for sender, message in messenger.generate_messaging_events(payload):
         print("Incoming from %s: %s" % (sender, message))
 
-        response = bot.respond_to(sender, message)
+        response, options = bot.respond_to(sender, message)
 
         print("Outgoing to %s: %s" % (sender, response))
-        messenger.send_message(FACEBOOK_TOKEN, sender, response)
+        messenger.send_message(FACEBOOK_TOKEN, sender, response, options)
 
     return "ok"
 
@@ -43,7 +43,7 @@ def local():
     message = data["message"]
     print("Incoming from %s: %s" % (sender, message))
 
-    response = bot.respond_to(sender, message)
+    response, options = bot.respond_to(sender, message)
 
     print("Outgoing to %s: %s" % (sender, response))
 
