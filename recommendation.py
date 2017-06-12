@@ -78,7 +78,7 @@ class Recommendation:
         best_match = similarities[0][1]
         best_match_user = self.test_users[best_match]
         recommendations = self.get_movies_from_user(best_match_user)[0:3]
-        return "Vos recommandations : " + ", ".join(recommendations)
+        return ("Vos recommandations : " + ", ".join(recommendations)), None
 
     def ask_question(self, user):
         movie_number = self.movies_list[randint(0, len(self.movies_list))]
