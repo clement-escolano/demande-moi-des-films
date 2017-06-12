@@ -31,8 +31,23 @@ class Recommendation:
         self.users = {}
         self.process_ratings_to_users()
 
-    def process_ratings_to_users(self):
+    def get_popular_movies(self):
         for rating in self.ratings:
+            self.movies_list.append(rating['movie'])
+        movie_occurences = dict()
+        for movie in self.movies_list:
+            if movie in movie_occurences:
+                movie_occurences[movie] += 1
+            else:
+                movie_occurences[movie] = 1
+
+        return [movie for movie in movie_occurences if movie_occurences[movie] > 5]
+
+    def process_ratings_to_users(self):
+        popular_movies = self.get_popular_movies()
+        for rating in self.ratings:
+            if rating["movie"] not in popular_movies:
+                continue
             if rating['user'] not in self.test_users.keys():
                 self.test_users[rating['user']] = User(rating['user'])
             user = self.test_users[rating['user']]
