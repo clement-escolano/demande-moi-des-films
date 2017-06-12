@@ -11,6 +11,8 @@ def generate_messaging_events(payload):
     for event in messaging_events:
         if "message" in event and "text" in event["message"]:
             yield event["sender"]["id"], event["message"]["text"]
+        if "postback" in event and "payload" in event["postback"]:
+            yield event["sender"]["id"], event["postback"]["payload"]
 
 
 def send_message(token, recipient, text, options=None):
