@@ -1,6 +1,7 @@
 import csv
 from User import User
 from random import randint
+import re
 
 
 class Recommendation:
@@ -31,6 +32,11 @@ class Recommendation:
         self.users = {}
         self.process_ratings_to_users()
 
+    @staticmethod
+    def get_movie_year(movie):
+        year_regex = re.compile('\d{4}')
+        return int(year_regex.search(movie).group(0))
+
     def get_popular_movies(self):
         for rating in self.ratings:
             self.movies_list.append(rating['movie'])
@@ -41,7 +47,8 @@ class Recommendation:
             else:
                 movie_occurences[movie] = 1
 
-        return [movie for movie in movie_occurences if movie_occurences[movie] > 10]
+        return [movie for movie in movie_occurences
+                if movie_occurences[movie] > 10 and self.get_movie_year(self.movies[movie]) > 2005]
 
     def process_ratings_to_users(self):
         popular_movies = self.get_popular_movies()
