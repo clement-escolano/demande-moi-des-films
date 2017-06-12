@@ -24,6 +24,7 @@ def verify():
 @app.route('/', methods=['POST'])
 def webhook():
     payload = request.get_data()
+    print(payload)
     for sender, message in messenger.generate_messaging_events(payload):
         print("Incoming from %s: %s" % (sender, message))
 
