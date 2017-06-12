@@ -38,10 +38,11 @@ class Recommendation:
         return int(year_regex.search(movie).group(0))
 
     def get_popular_movies(self):
+        movies_list = []
         for rating in self.ratings:
-            self.movies_list.append(rating['movie'])
+            movies_list.append(rating['movie'])
         movie_occurences = dict()
-        for movie in self.movies_list:
+        for movie in movies_list:
             if movie in movie_occurences:
                 movie_occurences[movie] += 1
             else:
@@ -53,18 +54,17 @@ class Recommendation:
     def process_ratings_to_users(self):
         popular_movies = self.get_popular_movies()
         for rating in self.ratings:
-            if rating["movie"] not in popular_movies:
-                continue
-            if rating['user'] not in self.test_users.keys():
-                self.test_users[rating['user']] = User(rating['user'])
-            user = self.test_users[rating['user']]
-            if rating['score'] >= 4:
-                user.good_ratings.append(rating['movie'])
-            elif rating['score'] <= 2:
-                user.bad_ratings.append(rating['movie'])
-            else:
-                user.neutral_ratings.append(rating['movie'])
-            self.movies_list.append(rating['movie'])
+            if rating["movie"] in popular_movies:
+                if rating['user'] not in self.test_users.keys():
+                    self.test_users[rating['user']] = User(rating['user'])
+                user = self.test_users[rating['user']]
+                if rating['score'] >= 4:
+                    user.good_ratings.append(rating['movie'])
+                elif rating['score'] <= 2:
+                    user.bad_ratings.append(rating['movie'])
+                else:
+                    user.neutral_ratings.append(rating['movie'])
+                self.movies_list.append(rating['movie'])
 
     def register_user(self, sender):
         if sender not in self.users.keys():
