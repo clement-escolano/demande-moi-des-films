@@ -41,7 +41,7 @@ class Recommendation:
             else:
                 movie_occurences[movie] = 1
 
-        return [movie for movie in movie_occurences if movie_occurences[movie] > 5]
+        return [movie for movie in movie_occurences if movie_occurences[movie] > 10]
 
     def process_ratings_to_users(self):
         popular_movies = self.get_popular_movies()
