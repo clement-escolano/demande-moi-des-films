@@ -54,7 +54,7 @@ class User:
         return self.questions_before_recommendation <= 0
 
     def get_norm(self):
-        norm = len(self.good_ratings) ** 2 + len(self.bad_ratings) ** 2
+        norm = (len(self.good_ratings) + len(self.bad_ratings)) ** 2
         return sqrt(norm)
 
     @staticmethod
