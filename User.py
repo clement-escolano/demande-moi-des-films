@@ -32,7 +32,7 @@ class User:
     def set_question(self, movie_number):
         self.latest_movie_asked = movie_number
         if self.questions_before_recommendation is None or self.questions_before_recommendation <= 0:
-            self.questions_before_recommendation = 5
+            self.questions_before_recommendation = 10
         self.question_asked_time = int(time())
 
     def answer_question(self, message):
