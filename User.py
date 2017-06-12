@@ -1,7 +1,4 @@
-from time import time
 from math import sqrt
-
-question_delay = 5 * 60
 
 
 class User:
@@ -13,42 +10,36 @@ class User:
         self.neutral_ratings = []
         self.latest_movie_asked = None
         self.questions_before_recommendation = None
-        self.question_asked_time = None
+
+    def has_been_asked_a_question(self):
+        return self.latest_movie_asked is not None
 
     def answer_yes(self):
         self.good_ratings.append(self.latest_movie_asked)
-        self.latest_movie_asked = None
         self.questions_before_recommendation -= 1
 
     def answer_no(self):
         self.bad_ratings.append(self.latest_movie_asked)
-        self.latest_movie_asked = None
         self.questions_before_recommendation -= 1
 
     def answer_neutral(self):
         self.neutral_ratings.append(self.latest_movie_asked)
-        self.latest_movie_asked = None
 
     def set_question(self, movie_number):
         self.latest_movie_asked = movie_number
         if self.questions_before_recommendation is None or self.questions_before_recommendation <= 0:
-            self.questions_before_recommendation = 10
-        self.question_asked_time = int(time())
+            self.questions_before_recommendation = 5
 
     def answer_question(self, message):
         clean_message = message.lower().strip()
-        if self.latest_movie_asked and int(time()) - self.question_asked_time < question_delay:
-            if "oui" in clean_message:
-                self.answer_yes()
-                return True
-            elif "non" in clean_message:
-                self.answer_no()
-                return True
-            else:
-                self.answer_neutral()
-                return True
         self.latest_movie_asked = None
-        return False
+
+        if "oui" in clean_message:
+            self.answer_yes()
+        elif "non" in clean_message:
+            self.answer_no()
+        else:
+            self.answer_neutral()
 
     def should_make_recommendation(self):
         return self.questions_before_recommendation <= 0

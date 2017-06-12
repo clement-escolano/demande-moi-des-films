@@ -10,12 +10,13 @@ class Bot(object):
 
     def respond_to(self, sender, message):
         user = self.recommendation.register_user(sender)
-        if not user.answer_question(message):
-            message, options = self.recommendation.ask_question(user)
-            message = "Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n" + message
-            return message, options
+        user.answer_question(message)
+
+        if user.should_make_recommendation():
+            return self.recommendation.make_recommendation(user)
         else:
-            if user.should_make_recommendation():
-                return self.recommendation.make_recommendation(user)
-            else:
-                return self.recommendation.ask_question(user)
+            intro = "Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n"
+            message, options = self.recommendation.ask_question(user)
+            if not user.has_been_asked_a_question():
+                message = intro + message
+            return message, options
