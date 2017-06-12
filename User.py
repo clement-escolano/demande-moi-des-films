@@ -42,6 +42,8 @@ class User:
             self.answer_neutral()
 
     def should_make_recommendation(self):
+        if self.questions_before_recommendation is None:
+            return False
         return self.questions_before_recommendation <= 0
 
     def get_norm(self):
