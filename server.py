@@ -1,7 +1,6 @@
 # coding: utf-8
 
 import os
-import json
 from flask import Flask, request
 
 import chatbot
@@ -35,12 +34,10 @@ def webhook():
     return "ok"
 
 
-@app.route('/local', methods=['POST'])
+@app.route('/local', methods=['GET'])
 def local():
-    payload = request.get_data()
-    data = json.loads(payload)
-    sender = data["sender"]
-    message = data["message"]
+    sender = "local"
+    message = request.args.get('message')
     print("Incoming from %s: %s" % (sender, message))
 
     response, options = bot.respond_to(sender, message)
