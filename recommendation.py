@@ -48,7 +48,7 @@ class Recommendation:
     # Puis lui attribue ses films aimés et détestés
     def process_ratings_to_users(self):
         for rating in self.ratings:
-            user = self.register_test_user([rating['user']])
+            user = self.register_test_user(rating['user'])
             if rating['isAppreciated']:
                 user.good_ratings.append(rating['movie'])
             else:
