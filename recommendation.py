@@ -48,24 +48,17 @@ class Recommendation:
         return self.users[sender]
 
     def make_recommendation(self, user):
-        similarities = self.compute_all_similarities(user)
-        similarities.sort()
-        similarities.reverse()
-        best_match = similarities[0][1]
-        best_match_user = self.test_users[best_match]
-        recommendations = self.get_movies_from_user(best_match_user)[0:3]
-        return ("Vos recommandations : " + ", ".join(recommendations)), None
+        return "Vous n'avez pas de recommandation pour le moment.", None
 
     def ask_question(self, user):
-        movie_number = self.movies_list[randint(0, len(self.movies_list))]
-        user.set_question(movie_number)
-        return ("Avez-vous aimé : " + self.movies[movie_number]), ["Oui", "Non", "Pas vu"]
+        return "", None
+
+    @staticmethod
+    def get_similarity(user_a, user_b):
+        return 0
 
     def compute_all_similarities(self, user):
-        similarities = []
-        for other_user in self.test_users.values():
-            similarities.append((User.get_similarity(user, other_user), other_user.id))
-        return similarities
+        return []
 
     def get_movies_from_user(self, user):
         movies_list = []

@@ -47,16 +47,4 @@ class User:
         return self.questions_before_recommendation <= 0
 
     def get_norm(self):
-        norm = 1 + (len(self.good_ratings) + len(self.bad_ratings)) ** 2
-        return sqrt(norm)
-
-    @staticmethod
-    def get_similarity(user_a, user_b):
-        score = 0
-        for good_rating in user_a.good_ratings:
-            if good_rating in user_b.good_ratings:
-                score += 1
-        for bad_rating in user_a.bad_ratings:
-            if bad_rating in user_b.bad_ratings:
-                score -= 1
-        return score / (user_a.get_norm() * user_b.get_norm())
+        return 1

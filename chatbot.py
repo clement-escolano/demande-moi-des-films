@@ -15,8 +15,9 @@ class Bot(object):
         if user.should_make_recommendation():
             return self.recommendation.make_recommendation(user)
         else:
-            intro = "Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n"
-            message, options = self.recommendation.ask_question(user)
+            intro = ""
             if not user.has_been_asked_a_question():
-                message = intro + message
-            return message, options
+                intro = "Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n"
+
+            message, options = self.recommendation.ask_question(user)
+            return intro + message, options
