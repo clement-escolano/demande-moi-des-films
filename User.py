@@ -1,6 +1,3 @@
-from math import sqrt
-
-
 class User:
 
     def __init__(self, sender_id):
