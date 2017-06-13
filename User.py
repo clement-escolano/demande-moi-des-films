@@ -31,6 +31,9 @@ class User:
             self.questions_before_recommendation = 5
 
     def answer_question(self, message):
+        if self.latest_movie_asked is None:
+            return
+
         clean_message = message.lower().strip()
         self.latest_movie_asked = None
 
