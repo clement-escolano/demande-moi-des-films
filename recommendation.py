@@ -77,11 +77,12 @@ class Recommendation:
 
     # Affiche la recommandation pour l'utilisateur
     def make_recommendation(self, user):
-        return "Vous n'avez pas de recommandation pour le moment.", None
+        return "Vous n'avez pas de recommandation pour le moment."
 
     # Pose une question à l'utilisateur
+    # Pour rajouter des options, renvoyez
     def ask_question(self, user):
-        return "", None
+        return "Vous aimez les frites ?"
 
     # Calcule la similarité entre 2 utilisateurs
     @staticmethod
