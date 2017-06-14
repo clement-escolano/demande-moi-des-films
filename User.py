@@ -5,6 +5,8 @@ class User:
         self.good_ratings = []
         self.bad_ratings = []
         self.neutral_ratings = []
+        self.ratings = dict()
+        self.average_rating = 0
         self.latest_movie_asked = None
         self.questions_before_recommendation = None
 

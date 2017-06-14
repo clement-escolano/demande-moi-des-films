@@ -73,7 +73,7 @@ def transform_ratings(movies_dict):
         else:
             movies_occurences[movie] = 1
 
-    popular_ratings.append(["user", "movie", "isAppreciated"])
+    popular_ratings.append(["user", "movie", "is_appreciated"])
     for rating in ratings_list:
         if movies_occurences[rating[1]] > 50 and movies_dict[rating[1]][2] > 2000:
             popular_ratings.append(rating)
