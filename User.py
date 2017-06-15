@@ -31,6 +31,12 @@ class User:
     def answer_neutral(self):
         self.neutral_ratings.append(self.latest_movie_asked)
 
+    # Détermine si l'utilisateur a répondu à suffisamment de questions pour lui faire une recommandation.
+    def should_make_recommendation(self):
+        if self.questions_before_recommendation is None:
+            return False
+        return self.questions_before_recommendation <= 0
+
     # Enregistre le film qu'on a demandé à l'utilisateur pour le traiter au prochain message
     def set_question(self, movie_number):
         self.latest_movie_asked = movie_number
@@ -49,12 +55,6 @@ class User:
 
         # Il faut traiter ici le message
         return
-
-    # Détermine si l'utilisateur a répondu à suffisamment de questions pour lui faire une recommandation.
-    def should_make_recommendation(self):
-        if self.questions_before_recommendation is None:
-            return False
-        return self.questions_before_recommendation <= 0
 
     # Donne la norme de l'utilisateur
     def get_norm(self):
