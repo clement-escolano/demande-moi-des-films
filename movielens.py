@@ -70,7 +70,7 @@ class Movie:
 
 
 def load_movies():
-    movies = dict()
+    movies = []
     with open('./ml-latest-small/movies-popular.csv', 'rt', encoding="utf-8") as moviesFile:
         raw_movies = csv.reader(moviesFile, delimiter=',')
         is_first = True
@@ -78,7 +78,7 @@ def load_movies():
             if is_first:
                 is_first = False
                 continue
-            movies[int(movie[0])] = Movie(movie[0], movie[1], movie[2], movie[3])
+            movies.append(Movie(movie[0], movie[1], movie[2], movie[3]))
 
     return movies
 

@@ -1,6 +1,9 @@
 from User import User
 from random import randint
 
+import numpy as np
+from sklearn.cluster import KMeans
+
 from movielens import load_movies, load_simplified_ratings
 
 
@@ -9,9 +12,7 @@ class Recommendation:
     def __init__(self):
 
         # Importe la liste des films
-        # Dans la variable 'movies_list' se trouve la liste des identifiants des films
-        # Dans la variable 'movies' se trouve la correspondance entre l'identifiant d'un film et son titre
-        self.movies_list = []
+        # Dans la variable 'movies' se trouve la correspondance entre l'identifiant d'un film et le film
         self.movies = load_movies()
 
         # Importe la liste des notations
@@ -38,7 +39,6 @@ class Recommendation:
                 user.good_ratings.append(rating.movie)
             else:
                 user.bad_ratings.append(rating.movie)
-            self.movies_list.append(rating.movie)
 
     # Enregistre un utilisateur de test s'il n'existe pas déjà et le retourne
     def register_test_user(self, sender):
@@ -65,7 +65,6 @@ class Recommendation:
         return "Vous n'avez pas de recommandation pour le moment."
 
     # Pose une question à l'utilisateur
-    # Pour rajouter des options, renvoyez
     def ask_question(self, user):
         return "Vous aimez les frites ?"
 
