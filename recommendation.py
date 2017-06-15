@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from User import User
 from random import randint
 
@@ -13,7 +15,9 @@ class Recommendation:
 
         # Importe la liste des films
         # Dans la variable 'movies' se trouve la correspondance entre l'identifiant d'un film et le film
+        # Dans la variables 'movies_list' se trouve les films populaires qui sont vus par les utilisateurs
         self.movies = load_movies()
+        self.movies_list = []
 
         # Importe la liste des notations
         # Dans le tableau 'ratings' se trouve un objet avec un attribut 'movie' contenant l'identifiant du film, un
@@ -42,6 +46,7 @@ class Recommendation:
                     user.bad_ratings.append(rating.movie)
             elif rating.score is not None:
                 user.ratings.append(rating)
+            self.movies_list.append(rating.movie)
 
     # Enregistre un utilisateur de test s'il n'existe pas déjà et le retourne
     def register_test_user(self, sender):
