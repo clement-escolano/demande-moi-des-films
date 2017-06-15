@@ -1,50 +1,40 @@
 # coding: utf-8
 
 import os
-from flask import Flask, request
+from flask import Flask, request, jsonify, send_from_directory
+from random import randint
 
 import chatbot
-import messenger
 
 app = Flask(__name__)
 
-FACEBOOK_TOKEN = os.environ.get('FACEBOOK_TOKEN', 'facebook_token')
 bot = None
 
 
-@app.route('/', methods=['GET'])
-def verify():
-    if request.args.get('hub.verify_token', '') == os.environ.get('VERIFY_TOKEN', 'verify_token'):
-        return request.args.get('hub.challenge', '')
-    else:
-        return 'Error, wrong validation token'
-
-
-@app.route('/', methods=['POST'])
-def webhook():
-    payload = request.get_data()
-    for sender, message in messenger.generate_messaging_events(payload):
-        print("Incoming from %s: %s" % (sender, message))
-
-        response, options = bot.respond_to(sender, message)
-
-        print("Outgoing to %s: %s" % (sender, response))
-        messenger.send_message(FACEBOOK_TOKEN, sender, response, options)
-
-    return "ok"
-
-
-@app.route('/local', methods=['GET'])
-def local():
-    sender = "local"
+@app.route('/message', methods=['GET'])
+def receive_message():
+    sender = request.cookies["user_id"]
     message = request.args.get('message')
     print("Incoming from %s: %s" % (sender, message))
 
-    response, options = bot.respond_to(sender, message)
+    response = bot.respond_to(sender, message)
 
     print("Outgoing to %s: %s" % (sender, response))
 
+    return jsonify({"message": response})
+
+
+@app.route("/", methods=['GET'])
+def index():
+    response = send_from_directory('web', "index.html")
+    response.set_cookie("user_id", str(randint(1, 10000000)))
     return response
+
+
+@app.route("/web/<filename>", methods=['GET'])
+def static_files(filename=None):
+    return send_from_directory('web', filename)
+
 
 if __name__ == '__main__':
     bot = chatbot.Bot()
