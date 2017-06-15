@@ -18,7 +18,7 @@ $(document).ready(function() {
     function bot(message) {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:5000/message?message=" + message,
+            url: "/message?message=" + message,
             dataType: 'json',
             success: function (data) {
                 sendMessage(data.message);
