@@ -11,8 +11,6 @@ class User:
         self.neutral_ratings = []
         # Variables utilisées pour le deuxième algorithme
         self.ratings = dict()
-        self.average_rating = 0
-        self.rating_by_cluster = []
 
     def has_been_asked_a_question(self):
         return self.latest_movie_asked is not None
@@ -59,3 +57,7 @@ class User:
     # Donne la norme de l'utilisateur
     def get_norm(self):
         return 1
+
+    # Donne un vecteur avec les notations normalisées de l'utilisateur
+    def get_normalised_cluster_notations(self):
+        return []
