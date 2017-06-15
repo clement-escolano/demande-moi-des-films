@@ -31,41 +31,41 @@ class Movie:
 
     def init_genres(self, genres):
         for genre in genres.split('|'):
-            if genre is "Action":
+            if genre == "Action":
                 self.action = 1
-            if genre is "Adventure":
+            if genre == "Adventure":
                 self.adventure = 1
-            if genre is "Animation":
+            if genre == "Animation":
                 self.animation = 1
-            if genre is "Children":
+            if genre == "Children":
                 self.children = 1
-            if genre is "Comedy":
+            if genre == "Comedy":
                 self.comedy = 1
-            if genre is "Crime":
+            if genre == "Crime":
                 self.crime = 1
-            if genre is "Documentary":
+            if genre == "Documentary":
                 self.documentary = 1
-            if genre is "Drama":
+            if genre == "Drama":
                 self.drama = 1
-            if genre is "Fantasy":
+            if genre == "Fantasy":
                 self.fantasy = 1
-            if genre is "Film-Noir":
+            if genre == "Film-Noir":
                 self.film_noir = 1
-            if genre is "Horror":
+            if genre == "Horror":
                 self.horror = 1
-            if genre is "Musical":
+            if genre == "Musical":
                 self.musical = 1
-            if genre is "Mystery":
+            if genre == "Mystery":
                 self.mystery = 1
-            if genre is "Romance":
+            if genre == "Romance":
                 self.romance = 1
-            if genre is "Sci-Fi":
+            if genre == "Sci-Fi":
                 self.sci_fi = 1
-            if genre is "Thriller":
+            if genre == "Thriller":
                 self.thriller = 1
-            if genre is "War":
+            if genre == "War":
                 self.war = 1
-            if genre is "Western":
+            if genre == "Western":
                 self.western = 1
 
 
