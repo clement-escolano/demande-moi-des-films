@@ -85,11 +85,11 @@ def load_movies():
 
 class Rating:
 
-    def __init__(self, movie_id, user_id, score=0, is_appreciated="True"):
+    def __init__(self, movie_id, user_id, score=None, is_appreciated=None):
         self.movie = int(movie_id)
         self.user = int(user_id)
-        self.score = float(score)
-        self.is_appreciated = bool(is_appreciated)
+        self.score = float(score) if score is not None else None
+        self.is_appreciated = bool(is_appreciated) if is_appreciated is not None else None
 
 
 def load_simplified_ratings():
@@ -101,7 +101,7 @@ def load_simplified_ratings():
             if is_first:
                 is_first = False
                 continue
-            ratings.append(Rating(rating[1], rating[0], 0, rating[2]))
+            ratings.append(Rating(rating[1], rating[0], None, rating[2]))
 
     return ratings
 
@@ -115,6 +115,6 @@ def load_ratings():
             if is_first:
                 is_first = False
                 continue
-            ratings.append(Rating(rating[1], rating[0], rating[2]))
+            ratings.append(Rating(rating[1], rating[0], rating[2], None))
 
     return ratings

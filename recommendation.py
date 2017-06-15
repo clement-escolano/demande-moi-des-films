@@ -35,10 +35,13 @@ class Recommendation:
     def process_ratings_to_users(self):
         for rating in self.ratings:
             user = self.register_test_user(rating.user)
-            if rating.is_appreciated:
-                user.good_ratings.append(rating.movie)
-            else:
-                user.bad_ratings.append(rating.movie)
+            if rating.is_appreciated is not None:
+                if rating.is_appreciated:
+                    user.good_ratings.append(rating.movie)
+                else:
+                    user.bad_ratings.append(rating.movie)
+            elif rating.score is not None:
+                user.ratings.append(rating)
 
     # Enregistre un utilisateur de test s'il n'existe pas déjà et le retourne
     def register_test_user(self, sender):
