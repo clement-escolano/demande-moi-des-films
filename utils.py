@@ -65,7 +65,7 @@ def transform_ratings(movies_dict):
             continue
         is_appreciated = get_appreciation(rating[2])
         if is_appreciated is not None:
-            ratings_list.append([int(rating[0]), int(rating[1]), is_appreciated])
+            ratings_list.append([int(rating[0]), int(rating[1]), rating[2]])
     for rating in ratings_list:
         movie = rating[1]
         if movie in movies_occurences:
@@ -73,9 +73,9 @@ def transform_ratings(movies_dict):
         else:
             movies_occurences[movie] = 1
 
-    popular_ratings.append(["user", "movie", "is_appreciated"])
+    popular_ratings.append(["user", "movie", "score"])
     for rating in ratings_list:
-        if movies_occurences[rating[1]] > 50 and movies_dict[rating[1]][2] > 2000:
+        if movies_occurences[rating[1]] > 25 and movies_dict[rating[1]][2] > 2000:
             popular_ratings.append(rating)
 
     popular_ratings_file = open('./ml-latest-small/ratings-popular.csv', 'wt', encoding="utf-8")

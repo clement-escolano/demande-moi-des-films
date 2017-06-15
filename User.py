@@ -2,13 +2,17 @@ class User:
 
     def __init__(self, sender_id):
         self.id = sender_id
+        # Variables utilisées pour suivre l'évolution de l'utilisateur
+        self.latest_movie_asked = None
+        self.questions_before_recommendation = None
+        # Variables utilisées pour le premier algorithme
         self.good_ratings = []
         self.bad_ratings = []
         self.neutral_ratings = []
+        # Variables utilisées pour le deuxième algorithme
         self.ratings = dict()
         self.average_rating = 0
-        self.latest_movie_asked = None
-        self.questions_before_recommendation = None
+        self.rating_by_cluster = []
 
     def has_been_asked_a_question(self):
         return self.latest_movie_asked is not None
