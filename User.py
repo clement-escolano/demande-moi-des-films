@@ -49,7 +49,6 @@ class User:
 
         # On enlève les espaces en trop et on met tout le message en miniscule
         clean_message = message.lower().strip()
-        self.latest_movie_asked = None
 
         # Il faut traiter ici le message
         return

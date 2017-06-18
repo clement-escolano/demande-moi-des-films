@@ -41,8 +41,6 @@ $(document).ready(function() {
 
         if (message) {
 
-            input.addClass('disabled');
-            input.attr('disabled', 'disabled');
             submit.addClass('disabled');
             submit.attr('disabled', 'disabled');
 
@@ -50,7 +48,6 @@ $(document).ready(function() {
                 botPre     = '<span class="message">Chatflix écrit... <i class="glyphicon glyphicon-pencil"></i></span>';
                 botVal     = message;
                 botMessage = chatbotMessage.html() + '<p class="from-bot"><span class="user">Chatflix: </span>' + botPre + '</p>';
-                input.attr('placeholder', 'Chatflix écrit...');
                 chatbotMessage.html(botMessage);
                 scrollToMessage();
             }, 50);
@@ -58,11 +55,8 @@ $(document).ready(function() {
             setTimeout(function() {
                 botMessageReplace = $('#chatbot-message .from-bot:last-child()');
                 botMessage = '<span class="user">Chatflix: </span>' + botVal;
-                input.attr('placeholder', 'Écrivez votre message');
                 botMessageReplace.html(botMessage);
                 scrollToMessage();
-                input.removeClass('disabled');
-                input.removeAttr('disabled');
                 submit.removeClass('disabled');
                 submit.removeAttr('disabled');
             }, 500);
