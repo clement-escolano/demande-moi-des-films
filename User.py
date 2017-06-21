@@ -50,8 +50,12 @@ class User:
         # On enlève les espaces en trop et on met tout le message en miniscule
         clean_message = message.lower().strip()
 
-        # Il faut traiter ici le message
-        return
+        if "oui" in clean_message:
+            self.answer_yes()
+        elif "non" in clean_message:
+            self.answer_no()
+        else:
+            self.answer_neutral()
 
     # Donne la norme de l'utilisateur
     def get_norm(self):
