@@ -1,6 +1,5 @@
 # coding: utf-8
 
-from random import randint
 
 from app.User import User
 from app.movielens import MovieLens
@@ -14,7 +13,6 @@ class Recommendation:
         # Dans la variable 'movies' se trouve la correspondance entre l'identifiant d'un film et le film
         # Dans la variables 'movies_list' se trouve les films populaires qui sont vus par les utilisateurs
         self.movies = MovieLens.load_movies()
-        self.movies_list = []
 
         # Importe la liste des notations
         # Dans le tableau 'ratings' se trouve un objet avec un attribut 'movie' contenant l'identifiant du film, un
@@ -24,8 +22,6 @@ class Recommendation:
 
         # Les utilisateurs du fichier 'ratings-popular-simplified.csv' sont stockés dans 'test_users'
         self.test_users = {}
-        # Les utilisateurs du chatbot facebook seront stockés dans 'users'
-        self.users = {}
 
         # Lance le traitement des notations
         self.process_ratings_to_users()
@@ -43,19 +39,12 @@ class Recommendation:
                     user.bad_ratings.append(rating.movie)
             elif rating.score is not None:
                 user.ratings.append(rating)
-            self.movies_list.append(rating.movie)
 
     # Enregistre un utilisateur de test s'il n'existe pas déjà et le retourne
     def register_test_user(self, sender):
         if sender not in self.test_users.keys():
             self.test_users[sender] = User(sender)
         return self.test_users[sender]
-
-    # Enregistre un utilisateur s'il n'existe pas déjà et le retourne
-    def register_user(self, sender):
-        if sender not in self.users.keys():
-            self.users[sender] = User(sender)
-        return self.users[sender]
 
     # Retourne les films aimés par un utilisateur
     def get_movies_from_user(self, user):
@@ -101,13 +90,6 @@ class Recommendation:
         user.questions_before_recommendation = None
 
         return "Vos recommandations : " + ", ".join(recommendations)
-
-    # Pose une question à l'utilisateur
-    def ask_question(self, user):
-        movie_number = self.movies_list[randint(0, len(self.movies_list))]
-        user.set_question(movie_number)
-
-        return "Avez-vous aimé : " + self.movies[movie_number].title
 
     # Calcule la similarité entre 2 utilisateurs
     @staticmethod

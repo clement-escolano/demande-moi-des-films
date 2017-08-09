@@ -36,13 +36,13 @@ class User:
         return self.questions_before_recommendation <= 0
 
     # Enregistre le film qu'on a demandé à l'utilisateur pour le traiter au prochain message
-    def set_question(self, movie_number):
-        self.latest_movie_asked = movie_number
+    def set_pending_question(self, movie):
+        self.latest_movie_asked = movie
         if self.questions_before_recommendation is None or self.questions_before_recommendation <= 0:
             self.questions_before_recommendation = 5
 
     # Traite le message de l'utilisateur
-    def give_message(self, message):
+    def process_message(self, message):
         # Si on a rien demandé à l'utilisateur alors on ne fait rien
         if self.latest_movie_asked is None:
             return
