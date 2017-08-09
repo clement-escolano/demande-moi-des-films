@@ -3,7 +3,7 @@
 from random import randint
 
 from app.User import User
-from app.movielens import load_movies, load_simplified_ratings
+from app.movielens import MovieLens
 
 
 class Recommendation:
@@ -13,14 +13,14 @@ class Recommendation:
         # Importe la liste des films
         # Dans la variable 'movies' se trouve la correspondance entre l'identifiant d'un film et le film
         # Dans la variables 'movies_list' se trouve les films populaires qui sont vus par les utilisateurs
-        self.movies = load_movies()
+        self.movies = MovieLens.load_movies()
         self.movies_list = []
 
         # Importe la liste des notations
         # Dans le tableau 'ratings' se trouve un objet avec un attribut 'movie' contenant l'identifiant du film, un
         # attribut 'user' avec l'identifiant de l'utilisateur et un attribut 'is_appreciated' pour savoir si oui ou non
         # l'utilisateur aime le film
-        self.ratings = load_simplified_ratings()
+        self.ratings = MovieLens.load_simplified_ratings()
 
         # Les utilisateurs du fichier 'ratings-popular-simplified.csv' sont stockés dans 'test_users'
         self.test_users = {}

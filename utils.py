@@ -38,7 +38,7 @@ def transform_movies():
         title = title_regex.match(movie[1]).group(1).strip() if year else movie[1]
         movies_list.append([int(movie[0]), title, year, movie[2]])
 
-    popular_movies_file = open('./ml-latest-small/movies-popular.csv', 'wt', encoding="utf-8")
+    popular_movies_file = open('./ml-latest-small/movies-clean.csv', 'wt', encoding="utf-8")
     popular_movies_writer = csv.writer(popular_movies_file, delimiter=',')
     for row in movies_list:
         popular_movies_writer.writerow(row)
