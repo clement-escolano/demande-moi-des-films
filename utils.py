@@ -1,3 +1,6 @@
+# Utilities to process movies and ratings.
+# They will output only popular and recent movies for a better experience.
+
 import re
 import csv
 

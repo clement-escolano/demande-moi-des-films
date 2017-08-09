@@ -1,5 +1,8 @@
 # coding: utf-8
 
+# Main file. It assigns the endpoints of the server to the logic.
+# It also links the web assets (chat, style, images) to their URL.
+
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from random import randint
