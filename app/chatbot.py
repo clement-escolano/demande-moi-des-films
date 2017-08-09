@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from recommendation import Recommendation
+from app.recommendation import Recommendation
 
 
 class Bot(object):

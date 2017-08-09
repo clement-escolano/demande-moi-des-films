@@ -4,7 +4,7 @@ import os
 from flask import Flask, request, jsonify, send_from_directory
 from random import randint
 
-import chatbot
+from app import chatbot
 
 app = Flask(__name__)
 

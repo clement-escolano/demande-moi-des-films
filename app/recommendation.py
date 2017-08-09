@@ -1,12 +1,9 @@
 # coding: utf-8
 
-from User import User
 from random import randint
 
-import numpy as np
-from sklearn.cluster import KMeans
-
-from movielens import load_movies, load_simplified_ratings
+from app.User import User
+from app.movielens import load_movies, load_simplified_ratings
 
 
 class Recommendation:
