@@ -4,7 +4,7 @@ class User:
         self.id = sender_id
         # Variables utilisées pour suivre l'évolution de l'utilisateur
         self.latest_movie_asked = None
-        self.questions_before_recommendation = None
+        self.questions_before_recommendation = 5
         # Variables utilisées pour le premier algorithme
         self.good_ratings = []
         self.bad_ratings = []
@@ -31,15 +31,14 @@ class User:
 
     # Détermine si l'utilisateur a répondu à suffisamment de questions pour lui faire une recommandation.
     def should_make_recommendation(self):
-        if self.questions_before_recommendation is None:
-            return False
-        return self.questions_before_recommendation <= 0
+        return self.questions_before_recommendation is 0
 
     # Enregistre le film qu'on a demandé à l'utilisateur pour le traiter au prochain message
     def set_pending_question(self, movie):
         self.latest_movie_asked = movie
-        if self.questions_before_recommendation is None or self.questions_before_recommendation <= 0:
-            self.questions_before_recommendation = 5
+
+    def reset_remaining_questions_number(self):
+        self.questions_before_recommendation = 5
 
     # Traite le message de l'utilisateur
     def process_message(self, message):

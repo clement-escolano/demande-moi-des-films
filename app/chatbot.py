@@ -10,8 +10,8 @@ from app.recommendation import Recommendation
 class Bot(object):
 
     def __init__(self):
-        self.recommendation = Recommendation()
         self.movielens = MovieLens()
+        self.recommendation = Recommendation(self.movielens)
         self.movie_picker = MoviePicker(self.movielens)
         self.users = {}
 
@@ -24,6 +24,7 @@ class Bot(object):
 
         # Si le chatbot doit faire une recommandation ou pas
         if user.should_make_recommendation():
+            user.reset_remaining_questions_number()
             return self.recommendation.make_recommendation(user)
         else:
             intro = ""
