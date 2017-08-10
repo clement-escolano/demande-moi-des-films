@@ -10,7 +10,7 @@ class Recommendation:
         # Importe la liste des films
         # Dans la variable 'movies' se trouve la correspondance entre l'identifiant d'un film et le film
         # Dans la variables 'movies_list' se trouve les films populaires qui sont vus par les utilisateurs
-        self.movies = movielens
+        self.movies = movielens.movies
 
         # Importe la liste des notations
         # Dans le tableau 'ratings' se trouve un objet avec un attribut 'movie' contenant l'identifiant du film, un
@@ -30,45 +30,20 @@ class Recommendation:
     def process_ratings_to_users(self):
         for rating in self.ratings:
             user = self.register_test_user(rating.user)
+            movie = self.movies[rating.movie]
             if rating.is_appreciated is not None:
                 if rating.is_appreciated:
-                    user.good_ratings.append(rating)
+                    user.good_ratings.append(movie)
                 else:
-                    user.bad_ratings.append(rating)
+                    user.bad_ratings.append(movie)
             elif rating.score is not None:
-                user.ratings.append(rating)
+                user.ratings.append(movie)
 
     # Enregistre un utilisateur de test s'il n'existe pas déjà et le retourne
     def register_test_user(self, sender):
         if sender not in self.test_users.keys():
             self.test_users[sender] = User(sender)
         return self.test_users[sender]
-
-    # Retourne les films aimés par un utilisateur
-    def get_movies_from_user(self, user):
-        movies_list = []
-        good_movies = user.good_ratings
-        for movie in good_movies:
-            movies_list.append(movie.title)
-        return movies_list
-
-    def get_best_movies_from_users(self, users):
-        # Dictionnaire comptant le nombre d'occurences de chaque film
-        counted_movies = dict()
-        for user in users:
-            for movie in self.get_movies_from_user(user):
-                if movie in counted_movies:
-                    counted_movies[movie] += 1
-                else:
-                    counted_movies[movie] = 1
-        # Transforme le dictionnaire en liste pour pouvoir le trier
-        counted_movies_list = [(counted_movies[key], key) for key in counted_movies.keys()]
-        # Trie la liste de film par nombre d'occurences décroissant
-        counted_movies_list.sort()
-        counted_movies_list.reverse()
-        # Récupère seulement le nom des films
-        best_movies_list = [value for (key, value) in counted_movies_list]
-        return best_movies_list
 
     # Affiche la recommandation pour l'utilisateur
     def make_recommendation(self, user):
@@ -104,8 +79,8 @@ class Recommendation:
             if bad_rating in user_b.good_ratings:
                 score -= 1
 
-        norm_a = user_a.get_norm()
-        norm_b = user_b.get_norm()
+        norm_a = Recommendation.get_user_norm(user_a)
+        norm_b = Recommendation.get_user_norm(user_b)
 
         return score / (norm_a * norm_b)
 
@@ -115,3 +90,39 @@ class Recommendation:
         for other_user in self.test_users.values():
             similarities.append((self.get_similarity(user, other_user), other_user.id))
         return similarities
+
+    @staticmethod
+    def get_best_movies_from_users(users):
+        # Dictionnaire comptant le nombre d'occurences de chaque film
+        counted_movies = dict()
+        for user in users:
+            for movie in Recommendation.get_user_appreciated_movies(user):
+                if movie in counted_movies:
+                    counted_movies[movie] += 1
+                else:
+                    counted_movies[movie] = 1
+        # Transforme le dictionnaire en liste pour pouvoir le trier
+        counted_movies_list = [(counted_movies[key], key) for key in counted_movies.keys()]
+        # Trie la liste de film par nombre d'occurences décroissant
+        counted_movies_list.sort()
+        counted_movies_list.reverse()
+        # Récupère seulement le nom des films
+        best_movies_list = [value for (key, value) in counted_movies_list]
+        return best_movies_list
+
+    @staticmethod
+    def get_user_appreciated_movies(user):
+        movies_list = []
+        good_movies = user.good_ratings
+        for movie in good_movies:
+            movies_list.append(movie.title)
+        return movies_list
+
+    # Donne la norme de l'utilisateur
+    @staticmethod
+    def get_user_norm(user):
+        return 1 + len(user.good_ratings) + len(user.bad_ratings)
+
+    # Donne un vecteur avec les notations normalisées de l'utilisateur
+    def get_normalised_cluster_notations(self):
+        return []

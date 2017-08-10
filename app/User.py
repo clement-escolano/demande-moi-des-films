@@ -55,11 +55,3 @@ class User:
             self.answer_no()
         else:
             self.answer_neutral()
-
-    # Donne la norme de l'utilisateur
-    def get_norm(self):
-        return 1 + len(self.good_ratings) + len(self.bad_ratings)
-
-    # Donne un vecteur avec les notations normalisées de l'utilisateur
-    def get_normalised_cluster_notations(self):
-        return []
