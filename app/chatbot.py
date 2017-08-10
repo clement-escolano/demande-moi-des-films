@@ -1,5 +1,7 @@
 # coding: utf-8
 
+# Handle the logic of the chatbot: how to answer questions, what to do with messages and so on.
+
 from random import randint
 
 from app.User import User
@@ -16,19 +18,15 @@ class Bot(object):
         self.users = {}
 
     def respond_to(self, sender, message):
-        # Register if it does not already exist
         user = self.register_user(sender)
-
-        # Donne le message pour que l'utilisateur l'utilise
         user.process_message(message)
 
-        # Si le chatbot doit faire une recommandation ou pas
         if user.should_make_recommendation():
             user.reset_remaining_questions_number()
             return self.recommendation.make_recommendation(user)
         else:
             intro = ""
-            # Si l'utilisateur parle pour la première fois, affiche un message d'intro
+            # If the user speak for the first time, display a welcome message
             if not user.has_been_asked_a_question():
                 intro = "Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n"
 
