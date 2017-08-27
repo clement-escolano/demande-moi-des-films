@@ -84,7 +84,7 @@ class SimplifiedRating:
     def __init__(self, movie_id, user_id, is_appreciated):
         self.movie = int(movie_id)
         self.user = int(user_id)
-        self.is_appreciated = bool(is_appreciated)
+        self.is_appreciated = True if is_appreciated == 'True' else False
 
 
 class MovieLens:
