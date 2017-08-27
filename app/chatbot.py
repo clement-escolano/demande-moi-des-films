@@ -42,7 +42,7 @@ class Bot(object):
     def ask_question(self, user):
         movie = self.movie_picker.pick_a_movie()
         user.set_pending_question(movie)
-        return "Avez-vous aimé : " + movie.title
+        return "Avez-vous aimé : " + movie.title + " ?"
 
 
 # Take a movie randomly
@@ -52,7 +52,7 @@ class MoviePicker:
     def __init__(self, movielens):
         self.movielens = movielens
         self.movie_list = []
-        for rating in movielens.ratings:
+        for rating in movielens.simplified_ratings:
             self.movie_list.append(rating.movie)
 
     def pick_a_movie(self):
