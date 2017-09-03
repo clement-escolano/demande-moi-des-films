@@ -40,13 +40,13 @@ class Recommendation:
         for rating in self.ratings:
             user = self.register_test_user(rating.user)
             movie = self.movies[rating.movie]
-            if rating.is_appreciated is not None:
+            if hasattr(rating, 'is_appreciated'):
                 if rating.is_appreciated:
                     user.good_ratings.append(movie)
                 else:
                     user.bad_ratings.append(movie)
-            elif rating.score is not None:
-                user.ratings.append(movie)
+            if hasattr(rating, 'score'):
+                user.ratings[movie.id] = rating.score
 
     # Register a user if it does not exist and return it
     def register_test_user(self, sender):
