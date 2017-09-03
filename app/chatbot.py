@@ -25,10 +25,10 @@ class Bot(object):
             user.reset_remaining_questions_number()
             return self.recommendation.make_recommendation(user)
         else:
-            intro = ""
+            intro = u""
             # If the user speak for the first time, display a welcome message
             if not user.has_been_asked_a_question():
-                intro = "Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n"
+                intro = u"Bonjour ! Je vais vous poser des questions puis vous faire une recommandation.\n"
 
             message = self.ask_question(user)
             return intro + message
@@ -42,7 +42,7 @@ class Bot(object):
     def ask_question(self, user):
         movie = self.movie_picker.pick_a_movie()
         user.set_pending_question(movie)
-        return "Avez-vous aimé : " + movie.title + " ?"
+        return u"Avez-vous aimé : " + movie.title + u" ?"
 
 
 # Take a movie randomly

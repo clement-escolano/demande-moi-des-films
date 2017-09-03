@@ -19,13 +19,13 @@ def receive_message():
     sender = request.cookies["user_id"]
     message = request.args.get('message')
 
-    input_log = "Incoming from %s: %s" % (sender, message)
-    print(input_log.encode("utf-8"))
+    input_log = u"Incoming from %s: %s" % (sender, message)
+    print(input_log)
 
     response = bot.respond_to(sender, message)
 
-    output_log = "Outgoing to %s: %s" % (sender, response)
-    print(output_log.encode("utf-8"))
+    output_log = u"Outgoing to %s: %s" % (sender, response)
+    print(output_log)
 
     return jsonify({"message": response})
 

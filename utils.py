@@ -26,7 +26,7 @@ def get_appreciation(score):
 
 def transform_movies():
     movies_list = []
-    movies_file = open('./ml-latest-small/movies.csv', 'rt', encoding="utf-8")
+    movies_file = open('./ml-latest-small/movies.csv', 'rt')
     movies = csv.reader(movies_file, delimiter=',')
     is_first = True
     movies_list.append(["id", "title", "year", "genre"])
@@ -38,7 +38,7 @@ def transform_movies():
         title = title_regex.match(movie[1]).group(1).strip() if year else movie[1]
         movies_list.append([int(movie[0]), title, year, movie[2]])
 
-    popular_movies_file = open('./ml-latest-small/movies-clean.csv', 'wt', encoding="utf-8")
+    popular_movies_file = open('./ml-latest-small/movies-clean.csv', 'wt')
     popular_movies_writer = csv.writer(popular_movies_file, delimiter=',')
     for row in movies_list:
         popular_movies_writer.writerow(row)
@@ -59,7 +59,7 @@ def transform_ratings(movies_dict):
     popular_ratings = []
     movies_occurences = dict()
 
-    ratings_file = open('./ml-latest-small/ratings.csv', 'rt', encoding="utf-8")
+    ratings_file = open('./ml-latest-small/ratings.csv', 'rt')
     ratings = csv.reader(ratings_file, delimiter=',')
     is_first = True
     for rating in ratings:
@@ -81,10 +81,11 @@ def transform_ratings(movies_dict):
         if movies_occurences[rating[1]] > 25 and movies_dict[rating[1]][2] > 2000:
             popular_ratings.append(rating)
 
-    popular_ratings_file = open('./ml-latest-small/ratings-popular.csv', 'wt', encoding="utf-8")
+    popular_ratings_file = open('./ml-latest-small/ratings-popular.csv', 'wt')
     popular_ratings_writer = csv.writer(popular_ratings_file, delimiter=',')
     for row in popular_ratings:
         popular_ratings_writer.writerow(row)
+
 
 movies = transform_movies()
 transform_ratings(movies)
