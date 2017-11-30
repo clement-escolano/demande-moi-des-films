@@ -50,6 +50,7 @@ $(document).ready(function() {
                 botMessage = chatbotMessage.html() + '<p class="from-bot"><span class="user">Chatflix: </span>' + botPre + '</p>';
                 chatbotMessage.html(botMessage);
                 scrollToMessage();
+                input.select();
             }, 50);
 
             setTimeout(function() {
@@ -59,6 +60,7 @@ $(document).ready(function() {
                 scrollToMessage();
                 submit.removeClass('disabled');
                 submit.removeAttr('disabled');
+                input.select();
             }, 500);
 
         } else {
@@ -68,7 +70,7 @@ $(document).ready(function() {
             chatbotMessage.html(userMessage);
             scrollToMessage();
             input.val('');
-
+            input.select();
         }
     }
 });
